@@ -1,0 +1,52 @@
+{% extends "base.njk" %}
+
+{% block title %}Listado de Pacientes{% endblock %}
+
+{% block content %}
+  
+<div class="container mt-4">
+  <h1>Listado de Pacientes</h1>
+    <!-- Formulario de búsqueda -->
+  <form class="form-inline mb-3" action="/patients/find" method="GET">
+    <input type="text" name="surname" class="form-control" placeholder="Buscar por apellido" />
+    <button type="submit" class="btn btn-primary">Buscar</button>
+  </form>
+  <table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Birth Date</th>
+        <th>Address</th>
+        <th>Insurance Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for patient in patients %}
+      <tr>
+        <td>{{ patient.id }}</td>
+        <td>{{ patient.name }}</td>
+        <td>{{ patient.surname }}</td>
+        <td>{{ patient.birthDate }}</td>
+        <td>{{ patient.address }}</td>
+        <td>{{ patient.insuranceNumber }}</td>
+        <td>
+          <a href="/patients/{{ patient.id }}" class="btn btn-info btn-sm">Detalle</a>
+        </td>
+        <td>
+          <a href="/patients/{{ patient.id }}/edit" class="btn btn-info btn-sm">Editar</a>
+        </td>
+        <td>
+          <form action="/patients/{{ patient._id }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este paciente?')">
+              <input type="hidden" name="_method" value="delete">
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<a href="/patients/new" class="btn btn-primary">Registrar Paciente</a>
+{% endblock %}

@@ -1,0 +1,45 @@
+<!-- appointments/new.njk -->
+{% extends "base.njk" %}
+
+{% block title %}Añadir Cita{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Añadir Cita al Expediente de {{ record.patient.name }} {{ record.patient.surname }}</h1>
+  <form action="/records/{{ record._id }}/appointments" method="POST">
+    
+    <div class="form-group">
+      <label for="date">Fecha de la Cita</label>
+      <input type="datetime-local" name="date" id="date" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="physio">Fisioterapeuta</label>
+      <select name="physio" id="physio" class="form-control" required>
+        {% for physio in physios %}
+          <option value="{{ physio._id }}">{{ physio.name }} {{ physio.surname }} - Especialidad: {{ physio.specialty }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="diagnosis">Diagnóstico</label>
+      <textarea name="diagnosis" id="diagnosis" class="form-control" required minlength="10" maxlength="500"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="treatment">Tratamiento</label>
+      <textarea name="treatment" id="treatment" class="form-control" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="observations">Observaciones</label>
+      <textarea name="observations" id="observations" class="form-control" maxlength="500"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Cita</button>
+  </form>
+
+  <a href="/records/{{ record.patient._id }}" class="btn btn-secondary mt-3">Volver al Expediente</a>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.njk" %}
+
+{% block title %}Registrar Expediente Médico{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Registrar Expediente Médico</h1>
+  <form action="/records" method="POST">
+    {% if patients.length > 0 %}
+      <div class="form-group">
+        <label for="patientId">Pacientes sin expedientes creados:</label>
+        <select class="form-control" id="patientId" name="patientId" required>
+          <option value="">Seleccione un paciente</option>
+          {% for patient in patients %}
+            <option value="{{ patient._id }}">{{ patient.name }} {{ patient.surname }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+    <div class="form-group">
+      <label for="medicalRecord">Expediente Médico</label>
+      <textarea class="form-control" id="medicalRecord" name="medicalRecord"></textarea>
+    </div>
+
+    <!-- Sección para ingresar citas -->
+    <h5 class="mt-4">Citas Registradas</h5>
+    <div id="appointments-container">
+      <div class="appointment-item">
+        <div class="form-group">
+          <label for="date">Fecha de la Cita</label>
+          <input type="date" class="form-control" name="appointments[0][date]" required>
+        </div>
+
+        <div class="form-group">
+          <label for="physio">Fisioterapeuta</label>
+          <select class="form-control" name="appointments[0][physio]" required>
+            <option value="">Seleccione un fisioterapeuta</option>
+            {% for physio in physios %}
+              <option value="{{ physio._id }}">{{ physio.name }} (Especialidad: {{ physio.specialty }})</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="diagnosis">Diagnóstico</label>
+          <textarea class="form-control" name="appointments[0][diagnosis]" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="treatment">Tratamiento</label>
+          <textarea class="form-control" name="appointments[0][treatment]" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="observations">Observaciones</label>
+          <textarea class="form-control" name="appointments[0][observations]"></textarea>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-4">Registrar Expediente</button>
+    {% else %}
+       <p class="text-danger">No hay pacientes disponibles para asignar un expediente. Todos los pacientes ya tienen expedientes creados.</p>
+    {% endif %}
+  </form>
+</div>
+
+{% endblock %}

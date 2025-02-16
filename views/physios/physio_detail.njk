@@ -1,0 +1,19 @@
+{% extends "base.njk" %}
+{% block content %}
+<h1>Detalle del Fisioterapeuta</h1>
+<div class="card">
+  <div class="card-body">
+    <p><strong>Name:</strong> {{ physio.name }}</p>
+    <p><strong>Surname:</strong> {{ physio.surname }}</p>
+    <p><strong>Specialty:</strong> {{ physio.specialty }}</p>
+    <p><strong>License Number:</strong> {{ physio.licenseNumber }}</p>
+      {% if physio.image %}
+      <div>
+          <img src="/uploads/{{ physio.image }}" alt="Imagen del physio" style="max-width: 200px;">
+      </div>
+  {% endif %}
+    <a href="/physios/{{ physio.id }}/edit" class="btn btn-info btn-sm">Editar</a>
+    <a href="/physios" class="btn btn-primary">Volver al Listado</a>
+  </div>
+</div>
+{% endblock %}

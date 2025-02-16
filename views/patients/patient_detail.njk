@@ -1,0 +1,25 @@
+{% extends "base.njk" %}
+
+{% block title %}Detalle de Paciente{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Detalle de Paciente</h1>
+  <div class="card mt-3">
+    <div class="card-body">
+      <p class="card-title"><strong>Name:</strong> {{ patient.name }}</p>
+      <p class="card-text"><strong>Surname:</strong> {{ patient.surname }}</p>
+      <p class="card-text"><strong>Birth Date:</strong> {{ patient.birthDate | date('YYYY-MM-DD')}}</p>
+      <p class="card-text"><strong>Adress:</strong> {{ patient.address }}</p>
+      <p class="card-text"><strong>Unsurance Number:</strong> {{ patient.insuranceNumber }}</p>
+      {% if patient.image %}
+          <div>
+              <img src="/uploads/{{ patient.image }}" alt="Imagen del paciente" style="max-width: 200px;">
+          </div>
+      {% endif %}
+      <a href="/patients/{{ patient.id }}/edit" class="btn btn-info btn-sm">Editar</a>
+      <a href="/patients" class="btn btn-primary">Volver al Listado</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

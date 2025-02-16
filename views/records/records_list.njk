@@ -1,0 +1,39 @@
+{% extends "base.njk" %}
+
+{% block title %}Listado de Expedientes Médicos{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Listado de Expedientes Médicos</h1>
+
+  <!-- Formulario de búsqueda -->
+  <form class="form-inline mb-3" action="/records/find" method="GET">
+    <input type="text" name="surname" class="form-control" placeholder="Buscar por apellido del paciente" />
+    <button type="submit" class="btn btn-primary">Buscar</button>
+  </form>
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Paciente</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in records %}
+      <tr>
+        <td>{{ record.patient.name }} {{ record.patient.surname }}</td>
+        <td>
+          <a href="/records/{{ record.patient._id }}" class="btn btn-info btn-sm">Ver Detalle</a>
+        </td>
+        <td>
+          <a href="/records/{{ record._id }}/appointments/new" class="btn btn-primary mt-3">Añadir Cita</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<a href="/records/new" class="btn btn-primary">Agregar Expediente</a>
+{% endblock %}

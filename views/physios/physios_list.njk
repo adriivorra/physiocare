@@ -1,0 +1,42 @@
+{% extends "base.njk" %}
+{% block content %}
+<h1>Listado de Fisioterapeutas</h1>
+  <form class="form-inline mb-3" action="/physios/find" method="GET">
+    <input type="text" name="specialty" class="form-control" placeholder="Buscar por especialidad" />
+    <button type="submit" class="btn btn-primary">Buscar</button>
+  </form>
+  
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Specialty</th>
+      <th>License Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for physio in physios %}
+    <tr>
+      <td>{{ physio.name }}</td>
+      <td>{{ physio.surname }}</td>
+      <td>{{ physio.specialty }}</td>
+      <td>{{ physio.licenseNumber }}</td>
+      <td>
+        <a href="/physios/{{ physio._id }}" class="btn btn-info btn-sm">Detalles</a>
+      </td>
+      <td>
+        <a href="/physios/{{ physio._id }}/edit" class="btn btn-warning btn-sm">Editar</a>
+      </td>
+      <td>
+        <form action="/physios/{{ physio._id }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este physio?')">
+              <input type="hidden" name="_method" value="delete">
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="/physios/new" class="btn btn-primary">Agregar Fisioterapeuta</a>
+{% endblock %}

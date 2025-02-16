@@ -1,0 +1,42 @@
+{% extends "base.njk" %}
+
+{% block title %}Detalles del Expediente Médico{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Detalles del Expediente Médico de {{ record.patient.name }} {{ record.patient.surname }}</h1>
+
+  <h3>Información del Paciente</h3>
+      <p class="card-title"><strong>Name:</strong> {{ record.patient.name }}</p>
+      <p class="card-text"><strong>Surname:</strong> {{ record.patient.surname }}</p>
+      <p class="card-text"><strong>Birth Date:</strong> {{ record.patient.birthDate | date('YYYY-MM-DD')}}</p>
+      <p class="card-text"><strong>Adress:</strong> {{ record.patient.address }}</p>
+      <p class="card-text"><strong>Unsurance Number:</strong> {{ record.patient.insuranceNumber }}</p>
+
+  <h3>Citas Registradas</h3>
+    {% if record.appointments.length > 0 %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fecha de la Cita</th>
+                    <th>Fisioterapeuta</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in record.appointments %}
+                <tr>
+                    <td>{{ appointment.date | alldate }}</td>
+                    <td>{{ appointment.physio.name }} (Especialidad: {{ appointment.physio.specialty }})</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay citas registradas para este expediente.</p>
+    {% endif %}
+
+
+  <a href="/records/{{ record._id }}/appointments/new" class="btn btn-primary mt-3">Añadir Cita</a>
+  <a href="/records" class="btn btn-secondary">Volver al Listado de Expedientes</a>
+</div>
+{% endblock %}

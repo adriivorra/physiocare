@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <div class="container">
+    <a class="navbar-brand font-weight-bold text-primary" href="/" style="font-size: 1.5rem;">PhysioCare</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link text-dark font-weight-bold px-3" href="/patients">Pacientes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark font-weight-bold px-3" href="/physios">Fisioterapeutas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark font-weight-bold px-3" href="/records">Expedientes</a>
+        </li>
+        <li class="nav-item">
+          <a href="/patients/new" class="nav-link text-dark font-weight-bold px-3">Registrar Paciente</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark font-weight-bold px-3" href="/physios/new">Registrar Fisio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark font-weight-bold px-3" href="/records/new">Añadir expediente</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <form class="form-inline" action="/patients/find" method="GET">
+  <input type="text" name="surname" class="form-control" placeholder="Buscar pacientes por apellido" />
+  <button type="submit" class="btn btn-primary">Buscar</button>
+  </form>
+
+  <form class="form-inline" action="/physios/find" method="GET">
+  <input type="text" name="specialty" class="form-control" placeholder="Buscar fisios por especialidad" />
+  <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+<form class="form-inline" action="/records/find" method="GET">
+  <input type="text" name="surname" class="form-control" placeholder="Buscar expediente por apellido del paciente" />
+  <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+</nav>

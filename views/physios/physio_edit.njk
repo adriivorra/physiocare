@@ -1,0 +1,42 @@
+<h1>Editar Fisioterapeuta</h1>
+<form method="POST" action="/physios/{{ physio._id }}" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" name="name" id="name" class="form-control" value="{{ physio.name }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="surname">Apellido</label>
+        <input type="text" name="surname" id="surname" class="form-control" value="{{ physio.surname }}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="specialty">Especialidad</label>
+        <select name="specialty" id="specialty" class="form-control" required>
+            <option value="Sports" {% if physio.specialty === 'Sports' %}selected{% endif %}>Deportivo</option>
+            <option value="Neurological" {% if physio.specialty === 'Neurological' %}selected{% endif %}>Neurológico</option>
+            <option value="Pediatric" {% if physio.specialty === 'Pediatric' %}selected{% endif %}>Pediátrico</option>
+            <option value="Geriatric" {% if physio.specialty === 'Geriatric' %}selected{% endif %}>Geriátrico</option>
+            <option value="Oncological" {% if physio.specialty === 'Oncological' %}selected{% endif %}>Oncológico</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="licenseNumber">Número de Licencia</label>
+        <input type="text" name="licenseNumber" id="licenseNumber" class="form-control" value="{{ physio.licenseNumber }}" required>
+    </div>
+    <div class="form-group">
+    {% if physio.image %}
+        <div>
+            <img src="/uploads/{{ physio.image }}" alt="Imagen del physio" style="max-width: 200px;">
+        </div>
+    {% endif %}
+            <div class="form-group">
+    <!-- Campo para seleccionar una nueva imagen -->
+    <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+    </div>
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+</form>
+{% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+{% endif %}

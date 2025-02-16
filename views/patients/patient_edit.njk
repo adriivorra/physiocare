@@ -1,0 +1,62 @@
+{% extends "base.njk" %}
+
+{% block title %}Editar Paciente{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Editar Paciente</h1>
+    <form action="/patients/{{ patient._id }}" method="POST" enctype="multipart/form-data">
+        <!-- Mostrar errores -->
+        {% if errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for error in errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <!-- Campos del formulario -->
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" name="name" id="name" class="form-control" value="{{ patient.name }}" >
+        </div>
+
+        <div class="form-group">
+            <label for="surname">Apellidos</label>
+            <input type="text" name="surname" id="surname" class="form-control" value="{{ patient.surname }}" >
+        </div>
+
+        <div class="form-group">
+            <label for="birthDate">Fecha de Nacimiento</label>
+            <input type="date" name="birthDate" id="birthDate" class="form-control" value="{{ patient.birthDate | date('YYYY-MM-DD') }}" >
+        </div>
+
+        <div class="form-group">
+            <label for="address">Dirección</label>
+            <input type="text" name="address" id="address" class="form-control" value="{{ patient.address }}">
+        </div>
+
+        <div class="form-group">
+            <label for="insuranceNumber">Número de Seguro</label>
+            <input type="text" name="insuranceNumber" id="insuranceNumber" class="form-control" value="{{ patient.insuranceNumber }}" >
+        </div>
+
+        <!-- Mostrar la imagen actual si existe -->
+        {% if patient.image %}
+            <div>
+                <img src="/uploads/{{ patient.image }}" alt="Imagen del paciente" style="max-width: 200px;">
+            </div>
+        {% endif %}
+
+        <!-- Campo para seleccionar una nueva imagen -->
+        <div class="form-group">
+            <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+        </div>
+
+        <button type="submit" class="btn btn-success">Actualizar</button>
+        <a href="/patients/{{ patient._id }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
