@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Patient = require('../models/patient');
 const User = require('../models/user');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const multer = require('multer');
 const validator = require('validator');
 
