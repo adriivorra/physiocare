@@ -53,10 +53,7 @@ app.use('/physios', physiosRouter);
 app.use('/records', recordsRouter);
 
 
-mongoose.connect(DB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect(DB_URL)
 .then(() => console.log('Conectado a la base de datos physiocare'))
 .catch((error) => console.error('Error al conectar a la base de datos:', error));
 
